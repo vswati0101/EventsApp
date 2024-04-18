@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="12dp"
+    android:background="@color/gray_bg"
+    app:cardBackgroundColor="@color/gray_bg"
+    android:outlineAmbientShadowColor="@color/gray_bg"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:id="@+id/main_layout"
+    android:layout_height="wrap_content"
     android:padding="8dp">
+
 
     <ImageView
         android:id="@+id/eventImage"
         android:layout_width="160dp"
+        android:background="@drawable/rounded_image_bg"
         android:layout_height="90dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,4 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventGenre" />
 
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

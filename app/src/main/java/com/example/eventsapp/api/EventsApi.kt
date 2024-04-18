@@ -7,14 +7,14 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface EventsApi {
-    @GET("/attractions")
+    @GET("/discovery/v2/attractions")
     suspend fun getEvents(
-        @Query("country")
-        countryCode:String="us",
+        @Query("countryCode")
+        countryCode: String = "us",
         @Query("page")
-        pageNumber:Int=1,
-        @Query("apiKey")
-        apiKey:String=API_KEY
+        pageNumber: Int = 1,
+        @Query("apikey")
+        apiKey: String = API_KEY
     ): Response<EventsResponse>
 
 }

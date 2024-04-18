@@ -1,22 +1,92 @@
 package com.example.eventsapp.ui.fragments
-
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.eventsapp.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
+class ProfileFragment : Fragment() {
 
-class ProfileFragment : Fragment(R.layout.fragment_profile) {
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var currentUser: FirebaseUser
+    private lateinit var db: FirebaseFirestore
+    private lateinit var profileImageView: ImageView
+    private lateinit var emailEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var updateProfileButton: Button
+    private lateinit var logoutTextView: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        mAuth = FirebaseAuth.getInstance()
+        currentUser = mAuth.currentUser!!
+        db = FirebaseFirestore.getInstance()
+
+        profileImageView = view.findViewById(R.id.profile_image_view)
+        emailEditText = view.findViewById(R.id.emailprofileEt)
+        passwordEditText = view.findViewById(R.id.passprofileET)
+        updateProfileButton = view.findViewById(R.id.buttonprofile)
+        logoutTextView = view.findViewById(R.id.login_text)
+
+        emailEditText.setText(currentUser.email)
+
+        updateProfileButton.setOnClickListener {
+            val newEmail = emailEditText.text.toString()
+            val newPassword = passwordEditText.text.toString()
+
+            // Update email
+            if (newEmail != currentUser.email) {
+                updateEmail(newEmail)
+            }
+
+            // Update password
+            if (newPassword.isNotEmpty()) {
+                updatePassword(newPassword)
+            }
+        }
+
+        logoutTextView.setOnClickListener {
+            mAuth.signOut()
+            Toast.makeText(context, "Logged Out!", Toast.LENGTH_SHORT).show()
+            val loginFragment = LoginFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, loginFragment)
+                .commit()
+        }
+
+        return view
     }
 
+    private fun updateEmail(newEmail: String) {
+        currentUser.updateEmail(newEmail)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Update email in Firestore if needed
+                    // db.collection("users").document(currentUser.uid).update("email", newEmail)
+                }
+            }
+    }
 
+    private fun updatePassword(newPassword: String) {
+        currentUser.updatePassword(newPassword)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(context, "Profile Updated!", Toast.LENGTH_SHORT).show()
+                    // Password updated successfully
+                }
+            }
+    }
 }

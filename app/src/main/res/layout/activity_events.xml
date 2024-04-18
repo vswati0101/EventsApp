@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.EventsActivity">
 
+
     <FrameLayout
         android:id="@+id/flFragment"
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
         android:layout_height="80dp"
         app:menu="@menu/bottom_navigation_menu"
         app:itemTextColor="@color/white"
-        app:itemIconTint="@color/white"
+        app:itemIconTint="@color/black"
         android:background="#E91E63"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         app:layout_constraintBottom_toBottomOf="parent"

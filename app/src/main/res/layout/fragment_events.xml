@@ -6,10 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <WebView
-        android:id="@+id/webView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/book"
@@ -22,4 +19,239 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+        <ImageView
+            android:id="@+id/event_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+
+        <TextView
+            android:id="@+id/event_name_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="NAME"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_image" />
+
+        <TextView
+            android:id="@+id/event_name"
+            android:text="EVENT"
+            android:textStyle="bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_name_text" />
+
+    <TextView
+        android:id="@+id/event_type"
+        android:layout_width="136dp"
+        android:textStyle="bold"
+        android:layout_height="22dp"
+        android:text="type"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_name" />
+
+
+    <TextView
+        android:id="@+id/event_genre"
+        android:layout_width="136dp"
+        android:layout_height="22dp"
+        android:textStyle="bold"
+        android:text="genre"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_type" />
+
+
+    <TextView
+        android:id="@+id/event_subgenre"
+        android:layout_width="136dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="subgenre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_genre" />
+
+    <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/like_ly_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/event_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_image">
+
+            <TextView
+                android:id="@+id/event_locale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/event_image"-->
+<!--        android:layout_width="420dp"-->
+<!--        android:layout_height="281dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.721"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:srcCompat="@tools:sample/backgrounds/scenic" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/event_name"-->
+<!--        android:layout_width="178dp"-->
+<!--        android:layout_height="44dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Event"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/event_title" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/type"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="140dp"-->
+<!--        android:layout_marginEnd="160dp"-->
+<!--        android:text="TextView"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.305"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textView2"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/event_name" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/genre"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="180dp"-->
+<!--        android:text="TextView"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.3"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/genre_text"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/event_name" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/subgenre"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="220dp"-->
+<!--        android:text="TextView"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.168"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/subgenretext"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/event_name" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/event_image2"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="164dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/event_name"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/event_image"-->
+<!--        app:srcCompat="@drawable/fight" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/event_title"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:text="NAME"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.361"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/event_image2"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/event_image" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/type_text"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="64dp"-->
+<!--        android:text="TYPE -"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.043"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/event_image2" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/genre_text"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="104dp"-->
+<!--        android:text="GENRE -"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.047"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/event_image2" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/subgenretext"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="144dp"-->
+<!--        android:text="SUBGENRE -"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.05"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/event_image2" />-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

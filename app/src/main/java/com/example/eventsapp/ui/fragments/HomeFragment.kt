@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Button
 import android.widget.TextView
@@ -17,59 +16,64 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventsapp.R
 import com.example.eventsapp.adapters.EventsAdapter
-import com.example.eventsapp.databinding.FragmentEventsBinding
 import com.example.eventsapp.databinding.FragmentHomeBinding
 import com.example.eventsapp.ui.EventsActivity
-import com.example.eventsapp.ui.EventsViewModel
 import com.example.eventsapp.util.Constants
 import com.example.eventsapp.util.Resource
-import java.lang.Error
+import com.example.eventsapp.viewmodel.EventsViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     lateinit var eventsViewModel: EventsViewModel
     lateinit var eventsAdapter: EventsAdapter
     lateinit var retryButton: Button
-    lateinit var errorText:TextView
-    lateinit var itemEventsError:CardView
-    lateinit var binding:FragmentHomeBinding
+    lateinit var errorText: TextView
+    lateinit var itemEventsError: CardView
+    lateinit var binding: FragmentHomeBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding=FragmentHomeBinding.bind(view)
-        itemEventsError=view.findViewById(R.id.itemEventsError)
-        val inflater=requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view:View=inflater.inflate(R.layout.item_error,null)
-        retryButton=view.findViewById(R.id.retryButton)
-        errorText=view.findViewById(R.id.errorText)
-        eventsViewModel=(activity as EventsActivity).eventsViewModel
+        binding = FragmentHomeBinding.bind(view)
+        itemEventsError = view.findViewById(R.id.itemEventsError)
+        val inflater =
+            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view: View = inflater.inflate(R.layout.item_error, null)
+        retryButton = view.findViewById(R.id.retryButton)
+        errorText = view.findViewById(R.id.errorText)
+        eventsViewModel = (activity as EventsActivity).eventsViewModel
         setUpEventsRecycler()
-        eventsAdapter.setOnItemClickListener {
-            val bundle=Bundle().apply{
-                putSerializable("events",it)
-            }
-            findNavController().navigate(R.id.action_homeFragment_to_eventsFragment,bundle)
+//        eventsAdapter.setOnItemClickListener {
+//            val bundle = Bundle().apply {
+//                putSerializable("events", it)
+//            }
+//            findNavController().navigate(R.id.action_homeFragment_to_eventsFragment, bundle)
+//        }
+        eventsAdapter.setOnItemClickListener { event ->
+            val action = HomeFragmentDirections.actionHomeFragmentToEventsFragment(event)
+            findNavController().navigate(action)
         }
-        eventsViewModel.event.observe(viewLifecycleOwner, Observer { response->
-            when(response) {
-                is Resource.Success<*> ->{
+        eventsViewModel.event.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Resource.Success<*> -> {
                     hideProgressBar()
                     hideErrorMessage()
-                    response.data?.let{eventResponse ->
+                    response.data?.let { eventResponse ->
                         eventsAdapter.differ.submitList(eventResponse._embedded.attractions.toList())
-                        isLastPage=eventsViewModel.eventsPage==eventResponse.page.totalPages
-                        if(isLastPage){
-                            binding.recyclerEvents.setPadding(0,0,0,0)
+                        isLastPage = eventsViewModel.eventsPage == eventResponse.page.totalPages
+                        if (isLastPage) {
+                            binding.recyclerEvents.setPadding(0, 0, 0, 0)
                         }
 
                     }
                 }
-                is Resource.Error<*> ->{
+
+                is Resource.Error<*> -> {
                     hideProgressBar()
-                    response.message?.let{message->
-                        Toast.makeText(activity,"Sorry error:$message",Toast.LENGTH_LONG).show()
+                    response.message?.let { message ->
+                        Toast.makeText(activity, "Sorry error:$message", Toast.LENGTH_LONG).show()
                         showErrorMessage(message)
                     }
                 }
-                is Resource.Loading<*> ->{
+
+                is Resource.Loading<*> -> {
                     showProgressBar()
                 }
             }
@@ -78,29 +82,34 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             eventsViewModel.getEvents("us")
         }
     }
-    var isError=false
-    var isLoading=false
-    var isLastPage=false
-    var isScrolling=false
+
+    var isError = false
+    var isLoading = false
+    var isLastPage = false
+    var isScrolling = false
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE
-        isLoading=false
+        isLoading = false
     }
+
     private fun showProgressBar() {
         binding.paginationProgressBar.visibility = View.VISIBLE
-        isLoading=true
+        isLoading = true
     }
-    private fun hideErrorMessage(){
-        itemEventsError.visibility=View.INVISIBLE
-        isError=false
+
+    private fun hideErrorMessage() {
+        itemEventsError.visibility = View.INVISIBLE
+        isError = false
     }
-    private fun showErrorMessage(message:String){
-        itemEventsError.visibility=View.VISIBLE
-        errorText.text=message
-        isError=true
+
+    private fun showErrorMessage(message: String) {
+        itemEventsError.visibility = View.VISIBLE
+        errorText.text = message
+        isError = true
 
     }
-    val scrollListener=object:RecyclerView.OnScrollListener() {
+
+    val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -128,14 +137,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
-        private fun setUpEventsRecycler(){
-            eventsAdapter= EventsAdapter()
-            binding.recyclerEvents.apply{
-                adapter=eventsAdapter
-                layoutManager=LinearLayoutManager(activity)
-                addOnScrollListener(this@HomeFragment.scrollListener)
-            }
 
+    private fun setUpEventsRecycler() {
+        eventsAdapter = EventsAdapter()
+        binding.recyclerEvents.apply {
+            adapter = eventsAdapter
+            layoutManager = LinearLayoutManager(activity)
+            addOnScrollListener(this@HomeFragment.scrollListener)
         }
+
+    }
+
 
 }

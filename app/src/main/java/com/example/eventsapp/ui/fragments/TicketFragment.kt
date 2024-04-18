@@ -1,11 +1,8 @@
 package com.example.eventsapp.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -16,7 +13,7 @@ import com.example.eventsapp.R
 import com.example.eventsapp.adapters.EventsAdapter
 import com.example.eventsapp.databinding.FragmentTicketBinding
 import com.example.eventsapp.ui.EventsActivity
-import com.example.eventsapp.ui.EventsViewModel
+import com.example.eventsapp.viewmodel.EventsViewModel
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -33,7 +30,7 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
         setUpTicketRecycler()
         eventsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("events", it)
+                putSerializable("event", it)
             }
             findNavController().navigate(R.id.action_ticketFragment_to_eventsFragment, bundle)
         }

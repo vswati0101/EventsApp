@@ -1,4 +1,4 @@
-package com.example.eventsapp.ui
+package com.example.eventsapp.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

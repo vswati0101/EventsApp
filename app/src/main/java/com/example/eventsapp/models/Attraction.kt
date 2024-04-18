@@ -11,8 +11,8 @@ data class Attraction(
     val _links: Links,
     val classifications: MutableList<Classification>,
     val externalLinks: ExternalLinks?,
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    @PrimaryKey
+    val id: String,
     val images: MutableList<Image>,
     val locale: String,
     val name: String,

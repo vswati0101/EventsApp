@@ -5,8 +5,8 @@
         android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/ticketFragment"
-        android:title="History"
-        android:icon="@drawable/ic_ticket"/>
+        android:title="Wishlist"
+        android:icon="@drawable/ic_wishlist"/>
     <item
         android:id="@+id/profileFragment"
         android:title="Profile"

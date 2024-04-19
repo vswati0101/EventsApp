@@ -1,5 +1,6 @@
 package com.example.eventsapp.ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,6 +25,7 @@ class SignUpFragment : Fragment() {
     private lateinit var confirmPasswordEditText: EditText
     private lateinit var loginText: TextView
     private lateinit var signUpButton: Button
+    private lateinit var userName:TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +42,7 @@ class SignUpFragment : Fragment() {
         confirmPasswordEditText = view.findViewById(R.id.confirmPassEt)
         signUpButton = view.findViewById(R.id.button)
         loginText = view.findViewById(R.id.login_text)
+        userName=view.findViewById(R.id.usernameEt)
 
         signUpButton.setOnClickListener {
             signUp()
@@ -55,15 +58,26 @@ class SignUpFragment : Fragment() {
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
         val confirmPassword = confirmPasswordEditText.text.toString()
+        val username = userName.text.toString()
 
         if (password != confirmPassword) {
             Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
             return
         }
 
+
+        if (username.isEmpty()) {
+            userName.error = "Please enter your username"
+            return
+        }
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
+                    val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("userName", username)
+                    editor.apply()
                     Toast.makeText(context, "Sign up successful!", Toast.LENGTH_SHORT).show()
                     // Navigate to HomeFragment directly after successful signup
                     val intent = Intent(requireActivity(), EventsActivity::class.java)

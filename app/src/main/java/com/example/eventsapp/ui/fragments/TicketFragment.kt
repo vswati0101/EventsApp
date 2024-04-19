@@ -1,8 +1,8 @@
 package com.example.eventsapp.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -65,6 +65,7 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
             attachToRecyclerView(binding.recyclerHistory)
         }
         eventsViewModel.getTickets().observe(viewLifecycleOwner, Observer { attractions->
+
             eventsAdapter.differ.submitList(attractions)
         })
 
@@ -80,5 +81,7 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
     }
 
 }
+
+
 
 

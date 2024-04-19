@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.example.eventsapp.models.Attraction
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.eventsapp.models.EventsResponse
@@ -28,6 +29,12 @@ class EventsViewModel(app: Application, val eventsRepository: EventsRepository) 
     fun getEvents(countryCode: String) = viewModelScope.launch {
         eventsInternet(countryCode)
     }
+
+
+
+
+
+
 
     private fun handleEventsResponse(response: Response<EventsResponse>): Resource<EventsResponse> {
         if (response.isSuccessful) {
@@ -88,5 +95,8 @@ class EventsViewModel(app: Application, val eventsRepository: EventsRepository) 
             }
         }
     }
+
+
+
 
 }

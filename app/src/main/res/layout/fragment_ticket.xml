@@ -10,9 +10,9 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/poppins"
-        android:text="History"
+        android:text="Wishlist"
         android:textColor="#E91E63"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView

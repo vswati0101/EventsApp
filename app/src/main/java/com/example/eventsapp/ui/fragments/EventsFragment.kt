@@ -43,7 +43,7 @@ class EventsFragment : Fragment(R.layout.fragment_events) {
 //        }
         binding.book.setOnClickListener{
             eventsViewModel.addToHistory(event)
-            Snackbar.make(view,"Added to History",Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view,"Added to Wishlist",Snackbar.LENGTH_SHORT).show()
 
         }
     }

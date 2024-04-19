@@ -21,15 +21,33 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
+<!--    <ImageView-->
+<!--        android:id="@+id/eventImage"-->
+<!--        android:layout_width="160dp"-->
+<!--        android:layout_height="90dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <ImageView
-        android:id="@+id/eventImage"
-        android:layout_width="160dp"
-        android:background="@drawable/rounded_image_bg"
-        android:layout_height="90dp"
-        android:scaleType="centerCrop"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/eventImage"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:scaleType="centerCrop"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
 
     <TextView
         android:id="@+id/eventLocale"
@@ -40,7 +58,7 @@
         android:fontFamily="@font/poppins"
         android:textColor="#E91E63"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventImage" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <TextView
         android:id="@+id/eventTitle"
@@ -54,7 +72,7 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/eventImage"
+        app:layout_constraintLeft_toRightOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -68,7 +86,7 @@
         android:text="GENRE"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/eventImage"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
 
     <TextView

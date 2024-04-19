@@ -2,7 +2,6 @@ package com.example.eventsapp.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AbsListView
@@ -10,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +40,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         errorText = view.findViewById(R.id.errorText)
         eventsViewModel = (activity as EventsActivity).eventsViewModel
         setUpEventsRecycler()
+        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val userName = sharedPreferences.getString("userName", null)
+        // Assuming you have a TextField with id "textFieldUsername"
+        binding.textView3.text = userName
 //        eventsAdapter.setOnItemClickListener {
 //            val bundle = Bundle().apply {
 //                putSerializable("events", it)

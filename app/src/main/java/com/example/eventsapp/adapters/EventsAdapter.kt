@@ -1,6 +1,5 @@
 package com.example.eventsapp.adapters
 
-import android.media.metrics.Event
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.eventsapp.R
 import com.example.eventsapp.models.Attraction
-import com.example.eventsapp.models.Genre
 
 class EventsAdapter:RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     inner class EventViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
@@ -69,3 +67,4 @@ class EventsAdapter:RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     }
 
 }
+

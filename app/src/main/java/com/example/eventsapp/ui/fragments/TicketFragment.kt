@@ -71,17 +71,13 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
 
     }
     private fun setUpTicketRecycler(){
-            eventsAdapter= EventsAdapter()
-            binding.recyclerHistory.apply{
-                adapter=eventsAdapter
-                layoutManager= LinearLayoutManager(activity)
-            }
+        eventsAdapter= EventsAdapter()
+        binding.recyclerHistory.apply{
+            adapter=eventsAdapter
+            layoutManager= LinearLayoutManager(activity)
+        }
 
 
     }
 
 }
-
-
-
-

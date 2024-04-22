@@ -31,4 +31,5 @@ class EventsActivity : AppCompatActivity() {
 
 
     }
+
 }

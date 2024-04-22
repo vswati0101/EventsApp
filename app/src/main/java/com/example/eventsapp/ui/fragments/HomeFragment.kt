@@ -8,6 +8,7 @@ import android.widget.AbsListView
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,12 +24,15 @@ import com.example.eventsapp.util.Resource
 import com.example.eventsapp.viewmodel.EventsViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
-    lateinit var eventsViewModel: EventsViewModel
-    lateinit var eventsAdapter: EventsAdapter
-    lateinit var retryButton: Button
-    lateinit var errorText: TextView
-    lateinit var itemEventsError: CardView
-    lateinit var binding: FragmentHomeBinding
+    private lateinit var eventsViewModel: EventsViewModel
+    private lateinit var eventsAdapter: EventsAdapter
+    private lateinit var retryButton: Button
+    private lateinit var errorText: TextView
+    private lateinit var itemEventsError: CardView
+    private lateinit var binding: FragmentHomeBinding
+    private var isLoggedIn = false
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
@@ -42,18 +46,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         setUpEventsRecycler()
         val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val userName = sharedPreferences.getString("userName", null)
-        // Assuming you have a TextField with id "textFieldUsername"
         binding.textView3.text = userName
-//        eventsAdapter.setOnItemClickListener {
-//            val bundle = Bundle().apply {
-//                putSerializable("events", it)
-//            }
-//            findNavController().navigate(R.id.action_homeFragment_to_eventsFragment, bundle)
-//        }
+
         eventsAdapter.setOnItemClickListener { event ->
             val action = HomeFragmentDirections.actionHomeFragmentToEventsFragment(event)
             findNavController().navigate(action)
         }
+
         eventsViewModel.event.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success<*> -> {
@@ -65,7 +64,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         if (isLastPage) {
                             binding.recyclerEvents.setPadding(0, 0, 0, 0)
                         }
-
                     }
                 }
 
@@ -82,15 +80,32 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
             }
         })
+
         retryButton.setOnClickListener {
             eventsViewModel.getEvents("us")
         }
+
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // If the user is logged out, exit the app when the back button is pressed on the login screen
+                if (!isLoggedIn) {
+                    requireActivity().moveTaskToBack(true)
+                    requireActivity().finish()
+                    android.os.Process.killProcess(android.os.Process.myPid())
+                } else {
+                    // Otherwise, handle back button press as usual
+                    findNavController().popBackStack()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
     }
 
-    var isError = false
-    var isLoading = false
-    var isLastPage = false
-    var isScrolling = false
+    private var isError = false
+    private var isLoading = false
+    private var isLastPage = false
+    private var isScrolling = false
+
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE
         isLoading = false
@@ -110,10 +125,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         itemEventsError.visibility = View.VISIBLE
         errorText.text = message
         isError = true
-
     }
 
-    val scrollListener = object : RecyclerView.OnScrollListener() {
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -149,8 +163,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@HomeFragment.scrollListener)
         }
-
     }
-
-
 }

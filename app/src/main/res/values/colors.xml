@@ -5,4 +5,5 @@
     <color name="lightFloatingColor">#14213d</color>
     <color name="background_color">#FFFBE6</color>
     <color name="gray_bg">#e5e7e9</color>
+    <color name="purple">#673AB7</color>
 </resources>

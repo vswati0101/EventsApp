@@ -84,7 +84,7 @@ class ProfileFragment : Fragment() {
         currentUser.updatePassword(newPassword)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(context, "Profile Updated!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Password Updated!", Toast.LENGTH_SHORT).show()
                     // Password updated successfully
                 }
             }

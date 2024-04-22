@@ -19,6 +19,8 @@ class EventsAdapter:RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     lateinit var eventTitle:TextView
     lateinit var eventGenre:TextView
     lateinit var eventSubGenre:TextView
+
+
     private val differCallback=object:DiffUtil.ItemCallback<Attraction>(){
         override fun areItemsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {
             return oldItem.url == newItem.url
@@ -49,7 +51,7 @@ class EventsAdapter:RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
         eventGenre=holder.itemView.findViewById(R.id.eventGenre)
         eventSubGenre=holder.itemView.findViewById(R.id.eventSubGenre)
         holder.itemView.apply{
-            Glide.with(this).load(event.images.first().url).into(eventImage)
+            Glide.with(this).load(event.images.last().url).into(eventImage)
             eventLocale.text=event.locale
             eventTitle.text=event.name
             eventGenre.text=event.classifications.firstOrNull()?.genre?.name?:"Unknown Genre"
@@ -67,4 +69,3 @@ class EventsAdapter:RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     }
 
 }
-

@@ -14,10 +14,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.eventsapp.R
 import com.example.eventsapp.ui.EventsActivity
-import com.example.eventsapp.viewmodel.EventsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+
 
 class LoginFragment : Fragment() {
 
@@ -75,6 +75,7 @@ class LoginFragment : Fragment() {
                     Log.d("LoginFragment","navigate")
                     val intent = Intent(requireActivity(), EventsActivity::class.java)
                     requireActivity().startActivity(intent)
+                    requireActivity().finish()
                 } else {
                     val errorMessage = when (task.exception) {
                         is FirebaseAuthInvalidUserException -> "User not found"
@@ -85,13 +86,20 @@ class LoginFragment : Fragment() {
                 }
             }
     }
+    override fun onStart() {
+        super.onStart()
+        if(auth.currentUser!=null){
+            //send him to home activity
+            val intent = Intent(requireActivity(), EventsActivity::class.java)
+            requireActivity().startActivity(intent)
+        }
+    }
     private fun navigateToSignUpFragment() {
         val signupFragment = SignUpFragment()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, signupFragment)
         transaction.commit()
     }
-
 
 
 }

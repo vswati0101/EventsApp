@@ -1,5 +1,6 @@
 package com.example.eventsapp.ui.fragments
 
+import EventsAdapter
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,19 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.eventsapp.R
-import com.example.eventsapp.adapters.EventsAdapter
 import com.example.eventsapp.databinding.FragmentTicketBinding
 import com.example.eventsapp.ui.EventsActivity
 import com.example.eventsapp.viewmodel.EventsViewModel
 import com.google.android.material.snackbar.Snackbar
 
-
 class TicketFragment : Fragment(R.layout.fragment_ticket) {
 
+    private lateinit var eventsViewModel: EventsViewModel
+    private lateinit var eventsAdapter: EventsAdapter
+    private lateinit var binding: FragmentTicketBinding
 
-    lateinit var eventsViewModel: EventsViewModel
-    lateinit var eventsAdapter: EventsAdapter
-    lateinit var binding:FragmentTicketBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTicketBinding.bind(view)
@@ -41,8 +40,8 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
 
             override fun onMove(
                 recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
+                viewHolder: ViewHolder,
+                target: ViewHolder
             ): Boolean {
                 return true
             }
@@ -58,26 +57,27 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
                     show()
                 }
             }
-
-
         }
         ItemTouchHelper(itemTouchHelperCallBack).apply{
             attachToRecyclerView(binding.recyclerHistory)
         }
-        eventsViewModel.getTickets().observe(viewLifecycleOwner, Observer { attractions->
-
-            eventsAdapter.differ.submitList(attractions)
+        eventsViewModel.getTickets().observe(viewLifecycleOwner, Observer { attractions ->
+            if (attractions.isNotEmpty()) {
+                binding.recyclerHistory.visibility = View.VISIBLE
+                binding.textNoData.visibility = View.GONE
+                eventsAdapter.differ.submitList(attractions)
+            } else {
+                binding.recyclerHistory.visibility = View.GONE
+                binding.textNoData.visibility = View.VISIBLE
+            }
         })
-
     }
+
     private fun setUpTicketRecycler(){
         eventsAdapter= EventsAdapter()
         binding.recyclerHistory.apply{
             adapter=eventsAdapter
             layoutManager= LinearLayoutManager(activity)
         }
-
-
     }
-
 }

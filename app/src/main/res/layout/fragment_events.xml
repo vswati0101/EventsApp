@@ -25,6 +25,7 @@
             android:background="@drawable/background"
             android:id="@+id/collapsing_toolbar">
 
+
             <ImageView
                 android:id="@+id/eventImage"
                 android:layout_width="match_parent"
@@ -41,8 +42,9 @@
                 app:layout_collapseMode="pin"/>
 
 
-
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
 
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -58,50 +60,114 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="30dp">
+            android:padding="16dp">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/movie_poster_card"
+                android:layout_width="128dp"
+                android:layout_height="172dp"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                tools:ignore="MissingConstraints">
+
+                <ImageView
+                    android:id="@+id/eventImage2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fight" />
+
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/eventName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="TITLE"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/movie_poster_card"
+                app:layout_constraintTop_toTopOf="@+id/movie_poster_card" />
+
 
             <TextView
                 android:id="@+id/eventType"
-                android:layout_width="56dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="4dp"
-                android:textAlignment="center"
-                android:background="@drawable/rounded_image_bg"
-                android:backgroundTint="@color/gray_bg"
-                android:text="TYPE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                android:padding="2dp"
+                android:background="@drawable/bg_rnd_4"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/eventName"
+                app:layout_constraintTop_toBottomOf="@id/eventName" />
             <TextView
                 android:id="@+id/eventGenre"
-                android:layout_width="56dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="60dp"
-                android:background="@drawable/rounded_image_bg"
-                android:backgroundTint="@color/gray_bg"
-                android:text="GENRE"
-                android:textAlignment="center"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/eventType"
-                tools:layout_editor_absoluteY="2dp" />
-
+                android:padding="2dp"
+                android:background="@drawable/bg_rnd_4"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/eventType"
+                app:layout_constraintTop_toBottomOf="@id/eventType" />
             <TextView
                 android:id="@+id/eventSubgenre"
-                android:layout_width="56dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="60dp"
-                android:background="@drawable/rounded_image_bg"
-                android:backgroundTint="@color/gray_bg"
-                android:text="SUBGENRE"
-                android:textAlignment="center"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/eventGenre"
-                tools:layout_editor_absoluteY="2dp" />
+                android:padding="2dp"
+                android:background="@drawable/bg_rnd_4"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/eventGenre"
+                app:layout_constraintTop_toBottomOf="@id/eventGenre" />
+            <View
+                android:layout_width="match_parent"
+                android:id="@+id/divider"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.06"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_poster_card"/>
+
+
+            <ImageView
+                android:id="@+id/eventFacebook"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintEnd_toStartOf="@id/eventInstagram"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider"
+                app:srcCompat="@drawable/facebook" />
+
+            <ImageView
+                android:id="@+id/eventInstagram"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintEnd_toStartOf="@id/eventYoutube"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toEndOf="@+id/eventFacebook"
+                app:layout_constraintTop_toBottomOf="@+id/divider"
+                app:srcCompat="@drawable/ic_instagram" />
+
+            <ImageView
+                android:id="@+id/eventYoutube"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toEndOf="@+id/eventInstagram"
+                app:layout_constraintTop_toBottomOf="@+id/divider"
+                app:srcCompat="@drawable/ic_youtube" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -118,7 +184,7 @@
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="end|bottom"
         android:layout_marginRight="16dp"
-        android:backgroundTint="#9D89C2"/>
+        android:backgroundTint="#C0B4D6"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -1,5 +1,6 @@
 package com.example.eventsapp.ui.fragments
 
+import EventsAdapter
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,8 +17,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventsapp.R
-import com.example.eventsapp.adapters.EventsAdapter
 import com.example.eventsapp.databinding.FragmentHomeBinding
+import com.example.eventsapp.models.Attraction
 import com.example.eventsapp.ui.EventsActivity
 import com.example.eventsapp.util.Constants
 import com.example.eventsapp.util.Resource
@@ -49,9 +50,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.textView3.text = userName
 
         eventsAdapter.setOnItemClickListener { event ->
-            val action = HomeFragmentDirections.actionHomeFragmentToEventsFragment(event)
-            findNavController().navigate(action)
+            navigateToEventsFragment(event)
         }
+
 
         eventsViewModel.event.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
@@ -163,5 +164,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@HomeFragment.scrollListener)
         }
+    }
+    private fun navigateToEventsFragment(event: Attraction) {
+        val action = HomeFragmentDirections.actionHomeFragmentToEventsFragment(event)
+        findNavController().navigate(action)
     }
 }

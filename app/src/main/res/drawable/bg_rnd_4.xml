@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="4dp" /> <!-- Adjust the radius to match your card's corner radius -->
+    <solid android:color="@color/gray_bg" /> <!-- Set a color for the background -->
+</shape>

@@ -97,7 +97,7 @@ class LoginFragment : Fragment() {
     private fun navigateToSignUpFragment() {
         val signupFragment = SignUpFragment()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, signupFragment)
+        transaction.replace(R.id.flFragment, signupFragment)
         transaction.commit()
     }
 

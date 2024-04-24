@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.eventsapp.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -61,10 +62,7 @@ class ProfileFragment : Fragment() {
         logoutTextView.setOnClickListener {
             mAuth.signOut()
             Toast.makeText(context, "Logged Out!", Toast.LENGTH_SHORT).show()
-            val loginFragment = LoginFragment()
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, loginFragment)
-                .commit()
+            navigateToLoginFragment()
         }
 
         return view
@@ -88,5 +86,16 @@ class ProfileFragment : Fragment() {
                     // Password updated successfully
                 }
             }
+    }
+    private fun navigateToLoginFragment() {
+        hideBottomNavigation()
+        val loginFragment = LoginFragment()
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.eventsNavHostFragment, loginFragment)
+        transaction.commit()
+    }
+    private fun hideBottomNavigation() {
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.visibility = View.GONE
     }
 }

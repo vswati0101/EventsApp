@@ -1,6 +1,6 @@
 package com.example.eventsapp.ui.fragments
 
-import EventsAdapter
+
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventsapp.R
+import com.example.eventsapp.adapters.EventsAdapter
 import com.example.eventsapp.databinding.FragmentHomeBinding
 import com.example.eventsapp.models.Attraction
 import com.example.eventsapp.ui.EventsActivity

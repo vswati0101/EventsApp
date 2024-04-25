@@ -32,6 +32,7 @@ class EventsActivity : AppCompatActivity() {
 
 
     }
+
     fun bottomNavVisibility(visible: Boolean) {
         if (visible) {
             binding.bottomNavigationView.visibility = View.VISIBLE

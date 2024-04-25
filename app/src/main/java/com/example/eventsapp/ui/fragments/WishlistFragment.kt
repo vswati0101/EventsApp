@@ -1,4 +1,5 @@
 package com.example.eventsapp.ui.fragments
+
 import EventsViewModel
 import android.os.Bundle
 import android.view.View
@@ -38,9 +39,7 @@ class WishlistFragment : Fragment(R.layout.fragment_ticket) {
         ) {
 
             override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: ViewHolder,
-                target: ViewHolder
+                recyclerView: RecyclerView, viewHolder: ViewHolder, target: ViewHolder
             ): Boolean {
                 return true
             }

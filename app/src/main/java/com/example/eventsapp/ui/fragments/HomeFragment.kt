@@ -25,7 +25,6 @@ import com.example.eventsapp.ui.EventsActivity
 import com.example.eventsapp.util.Constants
 import com.example.eventsapp.util.Resource
 
-
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var eventsViewModel: EventsViewModel
     private lateinit var eventsAdapter: EventsAdapter
@@ -47,15 +46,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         errorText = view.findViewById(R.id.errorText)
         eventsViewModel = (activity as EventsActivity).eventsViewModel
         setUpEventsRecycler()
-        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val userName = sharedPreferences.getString("userName", null)
         binding.textView3.text = userName
 
         eventsAdapter.setOnItemClickListener { event ->
             navigateToEventsFragment(event)
         }
-
-
         eventsViewModel.event.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success<*> -> {
@@ -96,12 +94,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     requireActivity().finish()
                     android.os.Process.killProcess(android.os.Process.myPid())
                 } else {
-                    // Otherwise, handle back button press as usual
                     findNavController().popBackStack()
                 }
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner, onBackPressedCallback
+        )
     }
 
     private var isError = false
@@ -167,6 +166,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             addOnScrollListener(this@HomeFragment.scrollListener)
         }
     }
+
     private fun navigateToEventsFragment(event: Attraction) {
         val action = HomeFragmentDirections.actionHomeFragmentToEventsFragment(event)
         findNavController().navigate(action)

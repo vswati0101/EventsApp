@@ -32,13 +32,17 @@ class EventsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_EVENT -> EventViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.item_events, parent, false),differ,
+                LayoutInflater.from(parent.context).inflate(R.layout.item_events, parent, false),
+                differ,
                 onItemClickListener
             )
+
             VIEW_TYPE_ANOTHER -> AnotherViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.item_another, parent, false),differ,
+                LayoutInflater.from(parent.context).inflate(R.layout.item_another, parent, false),
+                differ,
                 onItemClickListener
             )
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -48,6 +52,7 @@ class EventsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is EventViewHolder -> {
                 holder.bind(differ.currentList[position])
             }
+
             is AnotherViewHolder -> {
                 holder.bind(differ.currentList[position])
             }
@@ -65,10 +70,8 @@ class EventsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             VIEW_TYPE_ANOTHER
         }
     }
-
     fun setOnItemClickListener(listener: (Attraction) -> Unit) {
         onItemClickListener = listener
     }
-
     private var onItemClickListener: ((Attraction) -> Unit)? = null
 }

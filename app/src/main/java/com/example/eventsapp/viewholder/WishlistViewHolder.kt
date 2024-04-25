@@ -28,11 +28,13 @@ class WishlistViewHolder(
             }
         }
     }
+
     fun bind(event: Attraction) {
         Glide.with(itemView).load(event.images[0].url).into(eventImage)
         eventTitle.text = event.name
         eventGenre.text = event.classifications.firstOrNull()?.genre?.name ?: "Unknown Genre"
-        eventSubGenre.text = event.classifications.firstOrNull()?.subGenre?.name ?: "Unknown SubGenre"
+        eventSubGenre.text =
+            event.classifications.firstOrNull()?.subGenre?.name ?: "Unknown SubGenre"
         eventLocale.text = event.locale
     }
 }

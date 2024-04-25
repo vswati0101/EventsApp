@@ -11,10 +11,10 @@ import com.example.eventsapp.models.Attraction
 @Dao
 interface EventsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(event:Attraction):Long
+    suspend fun upsert(event: Attraction): Long
 
     @Query("SELECT * FROM events")
-    fun getAllEvents():LiveData<List<Attraction>>
+    fun getAllEvents(): LiveData<List<Attraction>>
 
     @Delete
     suspend fun deleteEvent(event: Attraction)

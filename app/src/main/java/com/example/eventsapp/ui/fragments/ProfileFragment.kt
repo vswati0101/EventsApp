@@ -1,4 +1,5 @@
 package com.example.eventsapp.ui.fragments
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,8 +29,7 @@ class ProfileFragment : Fragment() {
     private lateinit var logoutTextView: TextView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
@@ -70,24 +70,20 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateEmail(newEmail: String) {
-        currentUser.updateEmail(newEmail)
-            .addOnCompleteListener { task ->
+        currentUser.updateEmail(newEmail).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Update email in Firestore if needed
-                    // db.collection("users").document(currentUser.uid).update("email", newEmail)
                 }
             }
     }
 
     private fun updatePassword(newPassword: String) {
-        currentUser.updatePassword(newPassword)
-            .addOnCompleteListener { task ->
+        currentUser.updatePassword(newPassword).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(context, "Password Updated!", Toast.LENGTH_SHORT).show()
-                    // Password updated successfully
                 }
             }
     }
+
     private fun navigateToLoginFragment() {
         hideBottomNavigation()
         val loginFragment = LoginFragment()
@@ -95,8 +91,10 @@ class ProfileFragment : Fragment() {
         transaction.replace(R.id.eventsNavHostFragment, loginFragment)
         transaction.commit()
     }
+
     private fun hideBottomNavigation() {
-        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val bottomNavigationView =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.visibility = View.GONE
     }
 }

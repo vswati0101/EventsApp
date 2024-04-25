@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.EventsActivity">
-
-
     <FrameLayout
         android:id="@+id/flFragment"
         android:layout_width="match_parent"
@@ -17,7 +15,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/eventsNavHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -25,9 +22,7 @@
             android:layout_height="match_parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/events_nav_graph" />
-
     </FrameLayout>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="412dp"
@@ -40,5 +35,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,8 +29,7 @@ class LoginFragment : Fragment() {
     private lateinit var userName: TextView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         auth = FirebaseAuth.getInstance()
@@ -69,7 +68,8 @@ class LoginFragment : Fragment() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                    val sharedPreferences =
+                        requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
                     editor.putString("userName", email)
                     editor.apply()
@@ -92,7 +92,6 @@ class LoginFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         if (auth.currentUser != null) {
-            //send him to home activity
             val intent = Intent(requireActivity(), EventsActivity::class.java)
             requireActivity().startActivity(intent)
             requireActivity().finish()

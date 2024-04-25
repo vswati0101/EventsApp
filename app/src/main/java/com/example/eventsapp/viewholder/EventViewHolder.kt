@@ -9,8 +9,11 @@ import com.bumptech.glide.Glide
 import com.example.eventsapp.R
 import com.example.eventsapp.models.Attraction
 
-class EventViewHolder(itemView: View, private val differ: AsyncListDiffer<Attraction>, private val onItemClickListener: ((Attraction) -> Unit)?) :
-    RecyclerView.ViewHolder(itemView) {
+class EventViewHolder(
+    itemView: View,
+    private val differ: AsyncListDiffer<Attraction>,
+    private val onItemClickListener: ((Attraction) -> Unit)?
+) : RecyclerView.ViewHolder(itemView) {
     private val eventImage: ImageView = itemView.findViewById(R.id.eventImage)
     private val eventLocale: TextView = itemView.findViewById(R.id.eventLocale)
     private val eventTitle: TextView = itemView.findViewById(R.id.eventTitle)
@@ -31,6 +34,7 @@ class EventViewHolder(itemView: View, private val differ: AsyncListDiffer<Attrac
         eventLocale.text = event.locale
         eventTitle.text = event.name
         eventGenre.text = event.classifications.firstOrNull()?.genre?.name ?: "Unknown Genre"
-        eventSubGenre.text = event.classifications.firstOrNull()?.subGenre?.name ?: "Unknown SubGenre"
+        eventSubGenre.text =
+            event.classifications.firstOrNull()?.subGenre?.name ?: "Unknown SubGenre"
     }
 }

@@ -55,7 +55,6 @@ class EventsViewModel(app: Application, val eventsRepository: EventsRepository) 
     }
 
 
-
     fun getTickets() = eventsRepository.getAllEvents()
 
     fun internetConnection(context: Context): Boolean {

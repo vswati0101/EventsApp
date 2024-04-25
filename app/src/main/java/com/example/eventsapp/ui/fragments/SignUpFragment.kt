@@ -25,32 +25,25 @@ class SignUpFragment : Fragment() {
     private lateinit var confirmPasswordEditText: EditText
     private lateinit var loginText: TextView
     private lateinit var signUpButton: Button
-    private lateinit var userName:TextView
+    private lateinit var userName: TextView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
-
-        // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
-
         emailEditText = view.findViewById(R.id.emailEt)
         passwordEditText = view.findViewById(R.id.passET)
         confirmPasswordEditText = view.findViewById(R.id.confirmPassEt)
         signUpButton = view.findViewById(R.id.button)
         loginText = view.findViewById(R.id.login_text)
-        userName=view.findViewById(R.id.usernameEt)
-
+        userName = view.findViewById(R.id.usernameEt)
         signUpButton.setOnClickListener {
             signUp()
         }
         loginText.setOnClickListener {
             navigateToLoginFragment()
         }
-
         return view
     }
 
@@ -64,22 +57,19 @@ class SignUpFragment : Fragment() {
             Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
             return
         }
-
-
         if (username.isEmpty()) {
             userName.error = "Please enter your username"
             return
         }
-
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(context, "Email and password cannot be empty", Toast.LENGTH_SHORT).show()
             return
         }
-
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                    val sharedPreferences =
+                        requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
                     editor.putString("userName", username)
                     editor.apply()
@@ -104,6 +94,4 @@ class SignUpFragment : Fragment() {
         transaction.replace(R.id.fragment_container, loginFragment)
         transaction.commit()
     }
-
-
 }

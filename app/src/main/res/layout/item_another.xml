@@ -10,15 +10,16 @@
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="12dp"
     android:background="@color/gray_bg"
-    app:cardBackgroundColor="@color/gray_bg"
     android:outlineAmbientShadowColor="@color/gray_bg"
+    app:cardBackgroundColor="@color/gray_bg"
     app:cardCornerRadius="16dp"
     app:cardElevation="8dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toTopOf="parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
         android:id="@+id/main_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">
 
@@ -36,8 +37,7 @@
                 android:layout_width="160dp"
                 android:layout_height="90dp"
                 android:background="@drawable/circular_bg"
-                android:scaleType="centerCrop"
-                />
+                android:scaleType="centerCrop" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -53,8 +53,8 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/cardView1"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -77,9 +77,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
+            android:ellipsize="end"
             android:text="SUB-GENRE"
             android:textColor="@color/black"
-            android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@+id/cardView1"
             app:layout_constraintTop_toBottomOf="@+id/eventGenre1" />
 

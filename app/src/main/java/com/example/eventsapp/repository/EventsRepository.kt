@@ -11,4 +11,6 @@ class EventsRepository(val db: EventDatabase) {
     suspend fun upsert(event: Attraction) = db.getEventDao().upsert(event)
     fun getAllEvents() = db.getEventDao().getAllEvents()
     suspend fun deleteEvent(event: Attraction) = db.getEventDao().deleteEvent(event)
+
+    
 }

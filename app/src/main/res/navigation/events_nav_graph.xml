@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/ticketFragment"
-        android:name="com.example.eventsapp.ui.fragments.TicketFragment"
+        android:name="com.example.eventsapp.ui.fragments.WishlistFragment"
         android:label="TicketFragment" >
         <action
             android:id="@+id/action_ticketFragment_to_eventsFragment"

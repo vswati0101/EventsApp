@@ -1,5 +1,3 @@
-package com.example.eventsapp.viewmodel
-
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
@@ -17,6 +15,7 @@ import java.io.IOException
 
 class EventsViewModel(app: Application, val eventsRepository: EventsRepository) :
     AndroidViewModel(app) {
+
     val event: MutableLiveData<Resource<EventsResponse>> = MutableLiveData()
     var eventsPage = 1
     var eventsResponse: EventsResponse? = null
@@ -28,6 +27,7 @@ class EventsViewModel(app: Application, val eventsRepository: EventsRepository) 
     fun getEvents(countryCode: String) = viewModelScope.launch {
         eventsInternet(countryCode)
     }
+
     private fun handleEventsResponse(response: Response<EventsResponse>): Resource<EventsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
@@ -50,10 +50,13 @@ class EventsViewModel(app: Application, val eventsRepository: EventsRepository) 
         eventsRepository.upsert(event)
     }
 
-    fun getTickets() = eventsRepository.getAllEvents()
-    fun deleteEvent(event: Attraction) = viewModelScope.launch {
+    fun removeFromHistory(event: Attraction) = viewModelScope.launch {
         eventsRepository.deleteEvent(event)
     }
+
+
+
+    fun getTickets() = eventsRepository.getAllEvents()
 
     fun internetConnection(context: Context): Boolean {
         (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).apply {
@@ -72,7 +75,7 @@ class EventsViewModel(app: Application, val eventsRepository: EventsRepository) 
     private suspend fun eventsInternet(countryCode: String) {
         event.postValue(Resource.Loading())
         try {
-            if (internetConnection(this.getApplication())) {
+            if (internetConnection(getApplication())) {
                 val response = eventsRepository.getEvents(countryCode, eventsPage)
                 event.postValue(handleEventsResponse(response))
 
@@ -87,8 +90,4 @@ class EventsViewModel(app: Application, val eventsRepository: EventsRepository) 
             }
         }
     }
-
-
-
-
 }

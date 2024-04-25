@@ -1,5 +1,6 @@
 package com.example.eventsapp.ui
 
+import EventsViewModel
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +11,6 @@ import com.example.eventsapp.R
 import com.example.eventsapp.databinding.ActivityEventsBinding
 import com.example.eventsapp.db.EventDatabase
 import com.example.eventsapp.repository.EventsRepository
-import com.example.eventsapp.viewmodel.EventsViewModel
 import com.example.eventsapp.viewmodel.EventsViewModelProviderFactory
 
 class EventsActivity : AppCompatActivity() {

@@ -1,6 +1,5 @@
 package com.example.eventsapp.db
 
-import android.media.metrics.Event
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete

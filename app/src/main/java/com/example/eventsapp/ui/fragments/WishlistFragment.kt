@@ -1,6 +1,5 @@
 package com.example.eventsapp.ui.fragments
-
-
+import EventsViewModel
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -11,16 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.eventsapp.R
-import com.example.eventsapp.adapters.EventsAdapter
+import com.example.eventsapp.adapters.WishlistAdapter
 import com.example.eventsapp.databinding.FragmentTicketBinding
 import com.example.eventsapp.ui.EventsActivity
-import com.example.eventsapp.viewmodel.EventsViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class TicketFragment : Fragment(R.layout.fragment_ticket) {
+class WishlistFragment : Fragment(R.layout.fragment_ticket) {
 
     private lateinit var eventsViewModel: EventsViewModel
-    private lateinit var eventsAdapter: EventsAdapter
+    private lateinit var wishlistAdapter: WishlistAdapter
     private lateinit var binding: FragmentTicketBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,7 +26,7 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
         binding = FragmentTicketBinding.bind(view)
         eventsViewModel = (activity as EventsActivity).eventsViewModel
         setUpTicketRecycler()
-        eventsAdapter.setOnItemClickListener {
+        wishlistAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("event", it)
             }
@@ -49,9 +47,9 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
 
             override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                val event = eventsAdapter.differ.currentList[position]
-                eventsViewModel.deleteEvent(event)
-                Snackbar.make(view, "Removed from History", Snackbar.LENGTH_LONG).apply {
+                val event = wishlistAdapter.differ.currentList[position]
+                eventsViewModel.removeFromHistory(event)
+                Snackbar.make(view, "Removed from Wishlist", Snackbar.LENGTH_LONG).apply {
                     setAction("Undo") {
                         eventsViewModel.addToHistory(event)
                     }
@@ -59,14 +57,14 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
                 }
             }
         }
-        ItemTouchHelper(itemTouchHelperCallBack).apply{
+        ItemTouchHelper(itemTouchHelperCallBack).apply {
             attachToRecyclerView(binding.recyclerHistory)
         }
         eventsViewModel.getTickets().observe(viewLifecycleOwner, Observer { attractions ->
             if (attractions.isNotEmpty()) {
                 binding.recyclerHistory.visibility = View.VISIBLE
                 binding.textNoData.visibility = View.GONE
-                eventsAdapter.differ.submitList(attractions)
+                wishlistAdapter.differ.submitList(attractions)
             } else {
                 binding.recyclerHistory.visibility = View.GONE
                 binding.textNoData.visibility = View.VISIBLE
@@ -74,11 +72,11 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
         })
     }
 
-    private fun setUpTicketRecycler(){
-        eventsAdapter= EventsAdapter()
-        binding.recyclerHistory.apply{
-            adapter=eventsAdapter
-            layoutManager= LinearLayoutManager(activity)
+    private fun setUpTicketRecycler() {
+        wishlistAdapter = WishlistAdapter()
+        binding.recyclerHistory.apply {
+            adapter = wishlistAdapter
+            layoutManager = LinearLayoutManager(activity)
         }
     }
 }

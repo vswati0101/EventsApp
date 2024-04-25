@@ -71,6 +71,11 @@ class SignUpFragment : Fragment() {
             return
         }
 
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(context, "Email and password cannot be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {

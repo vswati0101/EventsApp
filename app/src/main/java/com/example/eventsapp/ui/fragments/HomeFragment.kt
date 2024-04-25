@@ -1,6 +1,7 @@
 package com.example.eventsapp.ui.fragments
 
 
+import EventsViewModel
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,7 +24,7 @@ import com.example.eventsapp.models.Attraction
 import com.example.eventsapp.ui.EventsActivity
 import com.example.eventsapp.util.Constants
 import com.example.eventsapp.util.Resource
-import com.example.eventsapp.viewmodel.EventsViewModel
+
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var eventsViewModel: EventsViewModel

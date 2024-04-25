@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
     private lateinit var signupText: TextView
-    private lateinit var userName:TextView
+    private lateinit var userName: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +39,7 @@ class LoginFragment : Fragment() {
         passwordEditText = view.findViewById(R.id.passET)
         loginButton = view.findViewById(R.id.button)
         signupText = view.findViewById(R.id.signup_text)
-        userName=view.findViewById(R.id.usernameEt)
+        userName = view.findViewById(R.id.usernameEt)
 
         loginButton.setOnClickListener {
             login()
@@ -47,8 +47,6 @@ class LoginFragment : Fragment() {
         signupText.setOnClickListener {
             navigateToSignUpFragment()
         }
-
-
 
         return view
     }
@@ -63,6 +61,10 @@ class LoginFragment : Fragment() {
             return
         }
 
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(context, "Email and password cannot be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
@@ -72,7 +74,7 @@ class LoginFragment : Fragment() {
                     editor.putString("userName", email)
                     editor.apply()
                     Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT).show()
-                    Log.d("LoginFragment","navigate")
+                    Log.d("LoginFragment", "navigate")
                     val intent = Intent(requireActivity(), EventsActivity::class.java)
                     requireActivity().startActivity(intent)
                     requireActivity().finish()
@@ -86,21 +88,21 @@ class LoginFragment : Fragment() {
                 }
             }
     }
+
     override fun onStart() {
         super.onStart()
-        if(auth.currentUser!=null){
+        if (auth.currentUser != null) {
             //send him to home activity
             val intent = Intent(requireActivity(), EventsActivity::class.java)
             requireActivity().startActivity(intent)
+            requireActivity().finish()
         }
     }
+
     private fun navigateToSignUpFragment() {
         val signupFragment = SignUpFragment()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.flFragment, signupFragment)
+        transaction.replace(R.id.fragment_container, signupFragment)
         transaction.commit()
     }
-
-
 }
-

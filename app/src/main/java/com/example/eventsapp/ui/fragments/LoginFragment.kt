@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var emailEditText: EditText
@@ -33,13 +33,11 @@ class LoginFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         auth = FirebaseAuth.getInstance()
-
         emailEditText = view.findViewById(R.id.emailEt)
         passwordEditText = view.findViewById(R.id.passET)
         loginButton = view.findViewById(R.id.button)
         signupText = view.findViewById(R.id.signup_text)
         userName = view.findViewById(R.id.usernameEt)
-
         loginButton.setOnClickListener {
             login()
         }

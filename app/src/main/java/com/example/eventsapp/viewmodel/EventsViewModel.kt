@@ -28,32 +28,19 @@ class EventsViewModel(app: Application, val eventsRepository: EventsRepository) 
         eventsInternet(countryCode)
     }
 
-    private fun handleEventsResponse(response: Response<EventsResponse>): Resource<EventsResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let { resultResponse ->
-                eventsPage++
-                if (eventsResponse == null) {
-                    eventsResponse = resultResponse
-                } else {
-//                    val oldEvents=eventsResponse?.events
-//                    val newEvents=resultResponse.events
-//                    oldEvents?.addAll(newEvents)
-                }
-                return Resource.Success(eventsResponse ?: resultResponse)
-            }
-        }
-        return Resource.Error(response.message())
-
-    }
-
     fun addToHistory(event: Attraction) = viewModelScope.launch {
-        eventsRepository.upsert(event)
+        if (!isEventInWishlist(event)) { // Check if the event is not already in the wishlist
+            eventsRepository.upsert(event)
+        }
     }
 
     fun removeFromHistory(event: Attraction) = viewModelScope.launch {
         eventsRepository.deleteEvent(event)
     }
 
+    suspend fun isEventInWishlist(event: Attraction): Boolean {
+        return eventsRepository.isEventInWishlist(event)
+    }
 
     fun getTickets() = eventsRepository.getAllEvents()
 
@@ -77,16 +64,29 @@ class EventsViewModel(app: Application, val eventsRepository: EventsRepository) 
             if (internetConnection(getApplication())) {
                 val response = eventsRepository.getEvents(countryCode, eventsPage)
                 event.postValue(handleEventsResponse(response))
-
             } else {
                 event.postValue(Resource.Error("No internet connection"))
             }
-
         } catch (t: Throwable) {
             when (t) {
                 is IOException -> event.postValue(Resource.Error("Unable to connect"))
-                else -> event.postValue(Resource.Error("NO signal"))
+                else -> event.postValue(Resource.Error("No signal"))
             }
         }
+    }
+
+    private fun handleEventsResponse(response: Response<EventsResponse>): Resource<EventsResponse> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                eventsPage++
+                if (eventsResponse == null) {
+                    eventsResponse = resultResponse
+                } else {
+                    // Add logic here if needed
+                }
+                return Resource.Success(eventsResponse ?: resultResponse)
+            }
+        }
+        return Resource.Error(response.message())
     }
 }

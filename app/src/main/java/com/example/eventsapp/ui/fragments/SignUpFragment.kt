@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
-class SignUpFragment : Fragment() {
+class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var emailEditText: EditText
@@ -74,7 +74,6 @@ class SignUpFragment : Fragment() {
                     editor.putString("userName", username)
                     editor.apply()
                     Toast.makeText(context, "Sign up successful!", Toast.LENGTH_SHORT).show()
-                    // Navigate to HomeFragment directly after successful signup
                     val intent = Intent(requireActivity(), EventsActivity::class.java)
                     requireActivity().startActivity(intent)
                 } else {

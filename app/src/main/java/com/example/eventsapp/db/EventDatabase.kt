@@ -19,15 +19,18 @@ import com.example.eventsapp.models.Attraction
 )
 abstract class EventDatabase : RoomDatabase() {
     abstract fun getEventDao(): EventsDao
+
     companion object {
         @Volatile
         private var instance: EventDatabase? = null
         private val LOCK = Any()
+
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
             instance ?: createDatabase(context).also {
                 instance = it
             }
         }
+
         private fun createDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext, EventDatabase::class.java, "event_db.db"
         ).build()

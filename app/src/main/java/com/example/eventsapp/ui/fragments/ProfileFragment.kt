@@ -1,5 +1,6 @@
 package com.example.eventsapp.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.eventsapp.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.eventsapp.ui.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -63,7 +64,8 @@ class ProfileFragment : Fragment() {
         logoutTextView.setOnClickListener {
             mAuth.signOut()
             Toast.makeText(context, "Logged Out!", Toast.LENGTH_SHORT).show()
-            navigateToLoginFragment()
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+            requireActivity().startActivity(intent)
         }
 
         return view
@@ -84,17 +86,4 @@ class ProfileFragment : Fragment() {
             }
     }
 
-    private fun navigateToLoginFragment() {
-        hideBottomNavigation()
-        val loginFragment = LoginFragment()
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.eventsNavHostFragment, loginFragment)
-        transaction.commit()
-    }
-
-    private fun hideBottomNavigation() {
-        val bottomNavigationView =
-            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNavigationView.visibility = View.GONE
-    }
 }

@@ -11,24 +11,19 @@ import com.example.eventsapp.viewholder.AnotherViewHolder
 import com.example.eventsapp.viewholder.EventViewHolder
 
 class EventsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
     companion object {
         private const val VIEW_TYPE_EVENT = 1
         private const val VIEW_TYPE_ANOTHER = 2
     }
-
     private val differCallback = object : DiffUtil.ItemCallback<Attraction>() {
         override fun areItemsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {
             return oldItem.url == newItem.url
         }
-
         override fun areContentsTheSame(oldItem: Attraction, newItem: Attraction): Boolean {
             return oldItem == newItem
         }
     }
-
     val differ = AsyncListDiffer(this, differCallback)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_EVENT -> EventViewHolder(
@@ -36,13 +31,11 @@ class EventsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 differ,
                 onItemClickListener
             )
-
             VIEW_TYPE_ANOTHER -> AnotherViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.item_another, parent, false),
                 differ,
                 onItemClickListener
             )
-
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }

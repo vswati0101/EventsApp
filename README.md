@@ -49,4 +49,3 @@ The application follows the MVVM (Model-View-ViewModel) architecture pattern for
 ## Contact:
 For any inquiries or support, please contact [vswati0101@email.com].
 
-Feel free to enhance and customize this readme according to your project's specific requirements and details.
